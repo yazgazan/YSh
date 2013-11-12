@@ -30,6 +30,10 @@ Consistant list/hash access : `$list[0]` and `$hash["toto"]`. (no more ${titi[0]
 Support for named arguments for function, no more `arg1=$1; arg2=$2 ...`. (eg : `function toto($arg1, $arg2) ...`)  
 Support argument list (eg : `$arguments[0]`)
 
+Flow parsing builtins and string manipulation (field, replace, substr, etc)
+
+Arithmetic evaluation (where all vars are interpreted as numbers)
+
 Obvious support for history, glob and completion.
 
 ## non-Basics functionalities :
