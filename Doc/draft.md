@@ -11,21 +11,23 @@ Programmers friendly shell. Must be consistant, easy to read/write.
 
 ## Basics:
 
-Full pipe/redirection support, and more. Support for multiples redirections, pipes etc.
+Full pipe/redirection support, and more. Support for multiples redirections, pipes etc.  
 native support for buffers, named pipes,  prepared pipe-lines etc ...
 
-Variables are scopped by default, need keyword to go global.
-Uppercase named variables are global by default
-Every globals are exported
-Scopes include global scope, functions, loops and anonymes scopes. loops and anonymes scopes are different, they will use upper scope variables if exists.
+Variables are scopped by default, need keyword to go global.  
+Uppercase named variables are global by default  
+Every globals are exported  
+Scopes include global scope, functions, loops and anonymes scopes. loops and anonymes scopes are different, they will use upper scope variables if exists.  
 
-Full support of list/hash, builtins for `list/hash -> string -> list/hash` conversions, default list/hash conversion
-e.g. :
+Full support of list/hash, builtins for `list/hash -> string -> list/hash` conversions, default list/hash conversion  
+e.g. :  
+
 - `echo $list` => `item1 item2 item3`
 - `echo $hash` => `--key1=item1 --key2=item2 --key3=item3`
+
 Consistant list/hash access : `$list[0]` and `$hash["toto"]`. (no more ${titi[0]} ...)
 
-Support for named arguments for function, no more `arg1=$1; arg2=$2 ...`. (eg : `function toto($arg1, $arg2) ...`)
+Support for named arguments for function, no more `arg1=$1; arg2=$2 ...`. (eg : `function toto($arg1, $arg2) ...`)  
 Support argument list (eg : `$arguments[0]`)
 
 Obvious support for history, glob and completion.
@@ -41,6 +43,7 @@ Obvious support for history, glob and completion.
 ## Variables types
 
 Three variables types available :
+
 - string
 - objects (list/hash)
 - internal types
