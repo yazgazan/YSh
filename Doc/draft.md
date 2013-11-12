@@ -21,8 +21,8 @@ Invocation Usages :
 -c flag execute command  
 -i flag run a repl in the command/script context
 
-Full pipe/redirection support, and more. Support for multiples redirections, pipes etc.  
-native support for buffers, named pipes,  prepared pipe-lines etc ...
+Full pipe/redirection support, and more. Support for multiples redirections.
+Native support for buffers and named pipes.
 
 Variables are scopped by default, need keyword to go global.  
 Uppercase named variables are global by default  
@@ -56,9 +56,10 @@ Obvious support for history, glob and completion.
 
 ## Variables types
 
-Three variables types available :
+Four variables types available :
 
 - string
+- buffers
 - objects (list/hash)
 - internal types
 
