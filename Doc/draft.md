@@ -56,10 +56,9 @@ Obvious support for history, glob and completion.
 
 ## Variables types
 
-Four variables types available :
+Three variables types available :
 
 - string
-- buffers
 - objects (list/hash)
 - internal types
 
