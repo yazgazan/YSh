@@ -11,6 +11,16 @@ Programmers friendly shell. Must be consistant, easy to read/write.
 
 ## Basics:
 
+Invocation Usages :
+
+- ysh
+- ysh scriptname [script arguments]
+- ysh -[i]c command [command arguments]
+- ysh [-i] filename [script arguments]
+
+-c flag execute command  
+-i flag run a repl in the command/script context
+
 Full pipe/redirection support, and more. Support for multiples redirections, pipes etc.  
 native support for buffers, named pipes,  prepared pipe-lines etc ...
 
