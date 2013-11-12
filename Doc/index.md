@@ -6,6 +6,7 @@
 - [Invocation](basics/invocation.md)
 - [Pipes](basics/pipes.md)
 - [Redirections](basics/redirections.md)
+- [buffers](basics/buffers.md)
 - [Variables](basics/variables.md)
 - [Variables scopping](basics/scopping.md)
 - [Functions](basics/functions.md)
