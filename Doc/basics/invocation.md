@@ -15,6 +15,7 @@ YSh usage :
 - -C --config : source configscript before running repl
 
 Notes :
+
 - In the first form, the default configscript from $HOME will be loaded. If -C is not present (the configscript name is still to be defined)
 - The last three forms can't load any configscript
 - With -i options, no configscript will be loaded, you can however source your own. Moreover, any script-only functionalities will be disable before runing the repl.
