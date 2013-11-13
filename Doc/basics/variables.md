@@ -126,11 +126,11 @@ cpy=(array\_copy $array) # copy an array
 
 ```
 hash={}
-hash_count $hash # print the hash size (0 in this case)
-hash_delete $hash index # delete the index
-hash_has_index $hash index # return 0 if $hash[index] is defined, a positive number otherwise
-hash_get_index $hash val # return first index with $hash[index] == val
-hash_count_val $hash val # return the number of val present in $hash
-cpy=(hash_copy $hash) # copy a hash
+hash\_count $hash # print the hash size (0 in this case)
+hash\_delete $hash index # delete the index
+hash\_has\_index $hash index # return 0 if $hash[index] is defined, a positive number otherwise
+hash\_get\_index $hash val # return first index with $hash[index] == val
+hash\_count\_val $hash val # return the number of val present in $hash
+cpy=(hash\_copy $hash) # copy a hash
 ```
 
