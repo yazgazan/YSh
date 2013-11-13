@@ -100,6 +100,14 @@ echo $hash1 # will print 'k1=v1 k2=v2 k3=v3'
 
 ## Builtins helpers
 
+### Strings
+
+```
+str="test"
+string\_len $str # print the string size (4 in this case)
+string\_split $str $separator # split a string into an array
+```
+
 ### Array
 
 ```
