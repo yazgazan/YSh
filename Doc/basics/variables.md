@@ -112,13 +112,14 @@ string\_split $str $separator # split a string into an array
 
 ```
 array=[]
-array_count $array # print the array size (0 in this case)
-array_pop $array # will reduce array size by one
-array_pop_back $array # same as array_pop, but delete the first item
-array_push_back $array val # shift the array to the right and [0] is set to val
-array_delete $array index # delete the specified index, shift the remaining items
-array_insert $array index val # insert val to index, other indexes are shifted accordingly
-cpy=(array_copy $array) # copy an array
+array\_count $array # print the array size (0 in this case)
+array\_pop $array # will reduce array size by one
+array\_pop\_back $array # same as array\_pop, but delete the first item
+array\_push\_back $array val # shift the array to the right and [0] is set to val
+array\_delete $array index # delete the specified index, shift the remaining items
+array\_insert $array index val # insert val to index, other indexes are shifted accordingly
+array\_join $array $glue # join all array items into a string
+cpy=(array\_copy $array) # copy an array
 ```
 
 ### Hashes
