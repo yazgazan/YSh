@@ -35,9 +35,11 @@ delete_buff @buffname
 ## Builtins tools
 
 ```
+create_buff @buffer
 list_buff # list all opend buffers
 create_buff # create a new buffer
 delete_buff # delete a manualy created buffer
 cat_buff # print the buffer content to standard output, buffer is not consumed
+echo @buffer # buffers support string conversion
 ```
 
