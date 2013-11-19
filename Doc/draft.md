@@ -49,7 +49,7 @@ Obvious support for history, glob and completion.
 ## non-Basics functionalities :
 
 - module imports (modules don't share global context)
-- execution flow control (a script can modifiy itself while running) (wink to payen\_a) (not available in repl)
+- execution flow control (a script can modifiy itself while running) (wink to @Mayessache) (not available in repl)
 - script compilation (translation to compilable language)
 - syscalls support (can create socket, open files etc through c wrappers)
 - partially self modifiable, using grammar extension, custom hooks and macros
