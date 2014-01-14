@@ -1,6 +1,8 @@
 
 # YSh Documentation
 
+A draft is available [here](draft.md)
+
 ## Basics :
 
 - [Invocation](basics/invocation.md)
