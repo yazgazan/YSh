@@ -14,9 +14,14 @@ YSh usage :
 - -c --command : execute the following command.
 - -C --config : source configscript before running repl
 
+Config script naming (in priority order) :
+- `[install dir]/yshrc`
+- `$HOME/.yshrc`
+- `$(pwd)/.yshrc`
+
 Notes :
 
-- In the first form, the default configscript from $HOME will be loaded. If -C is not present (the configscript name is still to be defined)
+- In the first form, the default configscript will be loaded (see 'Config script naming' above) if -C is not present.
 - The last three forms can't load any configscript
 - With -i options, no configscript will be loaded, you can however source your own. Moreover, any script-only functionalities will be disable before runing the repl.
 
