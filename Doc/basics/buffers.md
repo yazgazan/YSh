@@ -2,7 +2,7 @@
 # Buffers
 
 Buffers can be used as temporary files, except that no files are created.
-Buffers can be verry memory consuming, it should be used with greate care.
+Buffers can be very memory consuming, it should be used with greate care.
 
 ## Creation
 
@@ -36,7 +36,7 @@ delete_buff @buffname
 
 ```
 create_buff @buffer
-list_buff # list all opend buffers
+list_buff # list all opened buffers
 create_buff # create a new buffer
 delete_buff # delete a manualy created buffer
 cat_buff # print the buffer content to standard output, buffer is not consumed
