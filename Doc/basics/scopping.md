@@ -11,6 +11,7 @@ Here is the list of scopes :
 - function
 - loop
 - anonyme scope
+- arithmetic scope
 
 Functions arguments does not overwrite global scope variables.
 
