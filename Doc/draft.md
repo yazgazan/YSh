@@ -7,7 +7,7 @@ Programmers friendly shell. Must be consistant, easy to read/write.
 
 - gnu readline 
 - gnu history
-- language yet to be defined (maybe C or Go)
+- C
 
 ## Basics:
 
