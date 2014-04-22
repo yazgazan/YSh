@@ -9,10 +9,10 @@ Example:
 ```
 toto=2
 # if / elseif / else
-if $toto < 2 {
+if toto < 2 {
   echo "toto is less than 2"
 }
-elseif $toto > 2 {
+elseif toto > 2 {
   echo "toto is greater than 2"
 }
 else {
@@ -20,9 +20,9 @@ else {
 } # prints 'toto is equal to 2'
 
 # alternative form
-if $toto < 2;
+if toto < 2;
   echo "toto is less than 2"
-elseif $toto > 2;
+elseif toto > 2;
   echo "toto is greater than 2"
 endif
 # prints nothing

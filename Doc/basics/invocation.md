@@ -26,4 +26,5 @@ Notes :
 - The last three forms can't load any configscript
 - With -i options, no configscript will be loaded, you can however source your own. Moreover, any script-only functionalities will be disable before runing the repl.
 - The state file is loaded just before interactive/command/script. It will override configscript/env.
+- The state file may be used to represent a finite-state machine.
 

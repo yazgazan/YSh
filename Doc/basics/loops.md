@@ -15,13 +15,13 @@ There are to forms of 'for' loops. classic and read.
 
 Example:
 ```
-for $i = 0; $i < 10; $i++ {
-  echo -n $i
+for i = 0; i < 10; i++ {
+  echo -n i
 } # prints '0123456789'
 
 # Alternative form :
-for $i = 9; $i >= 0; $i--;
-  echo -n $i
+for i = 9; i >= 0; i--;
+  echo -n i
 endfor # prints '9876543210'
 
 ```
@@ -36,25 +36,25 @@ Example:
 ```
 # file
 for read 'test.txt' in line {
-  echo $line
+  echo line
 } # print the file
 
 # buffer (specifying the newline symbols)
 i=0
-for read @buff1 ";" "\n" in token sep {
+for read buff1 ";" "\n" in token sep { # note that buff1 must exists as a buffer (though you could use the '@' specifier)
   # here, separators are ; and \n, they are stored in $sep.
-  if $sep == "\n" {
+  if sep == "\n" {
     echo "new line !"
     i=0
   }
   echo "$i : $token"
-  i=$[$i++]
+  i=[i++]
 } # print the token list (parse a csv file)
 
 # named pipes
 cat test.txt |:ptest
 for read :ptest in line {
-  echo $line
+  echo line
 } # print the file (useless use of a named pipe ...)
 
 ```
