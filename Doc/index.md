@@ -17,7 +17,7 @@ A draft is available [here](draft.md)
 - [Loops](basics/loops.md)
 - [job control](basics/job_control.md)
 - [pattern matching](basics/pattern_matching.md)
-- [command execution/substitution](basics/command_execution.md)
+- [command substitution/execution](basics/command_execution.md)
 - [command modifiers](basics/command_modifiers.md)
 - [string interpretation](basics/strings.md)
 - [general purpose builtins](basics/builtins.md)
@@ -35,7 +35,7 @@ A draft is available [here](draft.md)
 - [macros](advanced/macros.md)
 - [Internal types](advanced/internal_types.md)
 
-## repl specific :
+## repl specific (interactive context) :
 
 - [aliases](repl/aliases.md)
 - [history](repl/history.md)
