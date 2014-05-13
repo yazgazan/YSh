@@ -6,7 +6,7 @@
 Strings can be declared with the = operator.
 Examples :
 
-```
+```bash
 var1="blah"   # direct from string
 var2=(cmd)   # from a command output
 var3=var4    # from an other variable
@@ -16,7 +16,7 @@ var3=var4    # from an other variable
 
 Object can be created from the = opeartor :
 
-```
+```bash
 var1=[]   # for arrays
 var2={}   # for hashes
 ```
@@ -32,7 +32,7 @@ numeric strings (as "0") will be considered as a numeric 0 when needed.
 
 An array is declared empty. It should be filled starting from the first index (0) :
 
-```
+```bash
 array1=[]
 array1[0]=25
 array1[1]=24
@@ -44,7 +44,7 @@ the array will grow to that index, filling all unset fields with empty strings.
 
 Array's items can be accessed like normal variables :
 
-```
+```bash
 array1=[]
 array1[0]="test1"
 array1[]="test2" # will use next free index (array1[size], empty indexes are not considered free)
@@ -57,7 +57,7 @@ the array is not grown.
 
 Arrays support string conversion :
 
-```
+```bash
 array=[]
 array[]="test1"
 array[]="test2"
@@ -69,7 +69,7 @@ echo array # will print 'test1 test2'
 A Hash is declared empty, it can be filled with whatever key you want to use
 as long it is strings
 
-```
+```bash
 hash1={}
 hash1["hey1"]="val1"
 hash1[(cmd)]="val2"
@@ -77,7 +77,7 @@ hash1[(cmd)]="val2"
 
 Hash's items can be accessed like any variables :
 
-```
+```bash
 hash1={}
 hash1["hey1"]="val1"
 hash1["hey2"]="val2"
@@ -89,7 +89,7 @@ Undefined indexes resolves to empty string.
 
 Hash support string conversion
 
-```
+```bash
 hash1={}
 hash1["k1"]="v1"
 hash1["k2"]="v2"
@@ -101,7 +101,7 @@ echo hash1 # will print 'k1=v1 k2=v2 k3=v3'
 
 ### Strings
 
-```
+```bash
 str="test"
 string\_len str # print the string size (4 in this case)
 arr=(string\_split str separator) # split a string into an array
@@ -109,7 +109,7 @@ arr=(string\_split str separator) # split a string into an array
 
 ### Array
 
-```
+```bash
 array=[]
 array\_count array # print the array size (0 in this case)
 array\_pop array # will reduce array size by one
@@ -123,7 +123,7 @@ cpy=(array\_copy array) # copy an array
 
 ### Hashes
 
-```
+```bash
 hash={}
 hash\_count hash # print the hash size (0 in this case)
 hash\_delete hash index # delete the index

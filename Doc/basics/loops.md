@@ -14,7 +14,7 @@ There are to forms of 'for' loops. classic and read.
 ### Classic
 
 Example:
-```
+```bash
 for i = 0; i < 10; i++ {
   echo -n i
 } # prints '0123456789'
@@ -33,7 +33,7 @@ It can read lines from files, buffers and named pipes.
 The variable is local to the for scope
 
 Example:
-```
+```bash
 # file
 for read 'test.txt' in line {
   echo line

@@ -6,7 +6,7 @@ There is only one type of conditions : if. No switch here.
 The condition part always is an arithmetic scope.
 
 Example:
-```
+```bash
 toto=2
 # if / elseif / else
 if toto < 2 {

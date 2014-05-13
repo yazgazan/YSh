@@ -9,7 +9,7 @@ Unless ==, != or special conditions, everything is considered a number.
 ## Inline Arithmetic
 
 Example:
-```
+```bash
 echo "$[1 + 1]" # prints 2
 echo [1 + 1] # prints 2
 toto=5
@@ -30,7 +30,7 @@ if toto < 6 {
 In an Arithmetic scope, any arguments will be evaluated, expect inside `$()`.
 
 Example:
-```
+```bash
 function square(n) {
   [
     echo n * n

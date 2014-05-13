@@ -7,7 +7,7 @@ Functions definitions replace any alias/binaries/functions previously declared. 
 
 Better with examples :
 
-```
+```bash
 function namefunc1 {
   # ...
 }
@@ -22,7 +22,7 @@ endfunction
 
 Named and list arguments :
 
-```
+```bash
 function namefunc2(var1, var2) {
   echo var1 arguments[0]
   echo var2 arguments[1]

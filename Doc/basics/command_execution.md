@@ -5,7 +5,7 @@
 
 There is only one kind of substitution : Parenthesis
 
-```
+```bash
 toto=(ls) # expand to ls' standard output
 echo toto
 echo "dir : $(ls)" # the '$' specifier is required in string and interactive contexts

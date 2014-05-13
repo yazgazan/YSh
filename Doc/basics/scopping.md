@@ -20,7 +20,7 @@ Globals variables are accessibles in any scope. Uppercase variables are globals 
 
 Example :
 
-```
+```bash
 test1="ha"
 test2="ho"
 
@@ -42,7 +42,7 @@ echo test3 # test3 is not defined here, it will print ''
 
 You can specify whether a variable is local or global.
 
-```
+```bash
 localvar="hello world"
 
 { #anonyme scope
