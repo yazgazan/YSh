@@ -81,7 +81,7 @@ You can combine modifiers :
 ./test 1,2,4>2 # in this example, outputs 1 2 and 4 from test are redirected to the standard error output.
 ```
 
-Not that you can't redirect both to fds and file :
+Note that you can't redirect both to fds and file :
 
 ```bash
 cat >2 "file name" # invalid
