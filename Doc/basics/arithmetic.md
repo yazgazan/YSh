@@ -1,8 +1,20 @@
 
 # Arithmetic
 
+opinions needed :
+
+- The bitwise xor operator is ^. This is usualy the logical operator too, but we don't have booleans ...  
+  Any idea on how to make the distiction between the bitwise and logical xor ? `^^` ?
+- prefixes and suffixes operators ++ and --, four possibilities :
+  1. usual c behavior
+  1. only suffixes, c behavior
+  1. only suffices, prefix behavior
+  1. no prefix nor suffix : avoids all possible confusions, improve readability, only one way to do assignation.
+
+IMHO, option 3 or 4 could be the way to go, but this could be confusing for people used to the c behavior and taking advantage of it (which is bad practice im my opinion).
+
 There are two ways to do arithmetic in ysh : inline and scope.
-Both integers (long int) and floating point (double) numbers are suported.
+Only floating point (double) numbers are suported.
 
 Unless ==, != or special conditions, everything is considered a number.
 
@@ -33,19 +45,27 @@ Example:
 ```bash
 function square(n) {
   [
-    echo n * n
+    return n * n
   ]
 }
-square 2 # prints 4
+echo (square 2) # prints 4
 
-Alternative form :
+Alternate form :
 function cube(n) [
-  echo n * n * n
+  return n * n * n
 ]
-cube 2 # prints 8
+echo (cube 2) # prints 8
 ```
 
-## 
+## assignation
+
+Only `=` assignations are concidered valid. no `+=` and such.
+
+```bash
+a=1 # valid
+a=a+1 # valid
+a+=1 # not valid
+```
 
 ## Available Arithmetics operations
 
@@ -54,7 +74,7 @@ cube 2 # prints 8
 - prefixs : ++ --
 - postfixs : ++ --
 - comparaison operators : == > < >= <= !=
-- logical operators : ! && || 
+- logical operators : ! &&
 - bitwise operators : ~ & | ^ << >>
 - special conditions (text preservative) : (big bash grep)
   - -a "file" : 1 if file exists.
@@ -81,7 +101,7 @@ cube 2 # prints 8
   - "file1" -ef "file2" : 1 if file1 and file2 refer to the same device and inode numbers.
   - "file1" -nt "file2" : 1 if file1 is newer (according to modification date) than file2, or if file1 exists and file2 does not.
   - "file1" -ot "file2" : 1 if file1 is older than file2, or if file2 exists and file1 does not.
-  - -v "varname" : 1 if the shell variable varname is set (has been assigned a value).
-  - -z "string" : 1 if the length of string is zero.
-  - -n "string" : 1 if the length of string is non-zero.
+  - -v "varname" : 1 if the shell variable varname exists.
+  - -z "string" : 1 if the length of the string is zero.
+  - -n "string" : 1 if the length of the string is not zero.
 
