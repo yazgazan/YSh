@@ -44,7 +44,7 @@ cat <<< word
 ```
 
 The standard input/output is closed before the command is executed.
-Doesnt work with functions as it is done in the forked process.
+Doesnt work with functions since the closing is done in the forked process, right before executing the command.
 
 ```bash
 cat &< &>
