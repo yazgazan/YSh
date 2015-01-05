@@ -18,12 +18,12 @@ Object can be created from the = opeartor :
 
 ```bash
 var1=[]   # for arrays
-var2={}   # for hashes
+var2={}   # for hash tables
 ```
 
 Objects can only contain strings.
 Array's keys can only be numbers.
-Hash's keys can only be strings.
+Hash tables' keys can only be strings.
 
 Note : since vars can't be numeric values,
 numeric strings (as "0") will be considered as a numeric 0 when needed.
