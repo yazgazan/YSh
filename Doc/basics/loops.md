@@ -1,17 +1,17 @@
 
 # Loops
 
-There are two types of loops : for and while.
+There are only one type of loop : for.
 
-The condition part always is an arithmetic scope.
+The condition part always is an arithmetic scope, except for `for read ...`.
 
-Any variables declared in the for condition is local to its scope.
+Any variables declared in the condition is local to the for scope.
 
 ## for
 
-There are to forms of 'for' loops. classic and read.
+There are three forms of 'for' loops : the classic, read and "while" forms.
 
-### Classic
+### Classic form
 
 Example:
 ```bash
@@ -19,14 +19,9 @@ for i = 0; i < 10; i++ {
   echo -n i
 } # prints '0123456789'
 
-# Alternative form :
-for i = 9; i >= 0; i--;
-  echo -n i
-endfor # prints '9876543210'
-
 ```
 
-### read
+### read form
 
 The read form read a lines into the specified var.
 It can read lines from files, buffers and named pipes. 
@@ -48,7 +43,7 @@ for read buff1 ";" "\n" in token sep { # note that buff1 must exists as a buffer
     i=0
   }
   echo "$i : $token"
-  i=[i++]
+  i=[i+1]
 } # print the token list (parse a csv file)
 
 # named pipes
@@ -57,5 +52,17 @@ for read :ptest in line {
   echo line
 } # print the file (useless use of a named pipe ...)
 
+```
+
+### "while" form
+
+```bash
+
+i=0
+
+for i < 10 {
+  echo "write a line ..."
+  i=[i+1]
+}
 ```
 
