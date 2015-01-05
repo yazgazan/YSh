@@ -2,7 +2,7 @@
 # Buffers
 
 Buffers can be used as temporary files, except that no files are created.
-Buffers can be very memory consuming, it should be used with great care.
+There are no limits on the memory used by Buffers, it should thus be used carefully.
 
 ## Creation
 
