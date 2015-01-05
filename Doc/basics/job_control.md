@@ -9,7 +9,7 @@ Usage : kj [signal] job
 
 Kill the job. A signal can be provided (example : kj -USR2 1).
 
-## detach (detach job from shell)
+## detach (detach job from the shell/script)
 
 Usage : detach job
 
