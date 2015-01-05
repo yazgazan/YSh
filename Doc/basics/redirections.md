@@ -81,7 +81,11 @@ You can combine modifiers :
 ./test 1,2,4>2 # in this example, outputs 1 2 and 4 from test are redirected to the standard error output.
 ```
 
-Note that you can't redirect both to fds and file :
+Notes : 
+
+- when redirecting outputs other than 0,1 and 2 (>= 3), the fd will be opened before the program is executed.
+- 0 and 1 can be the same, from an input and/or output perspective.
+- you can't redirect both to fds and file :
 
 ```bash
 cat >2 "file name" # invalid
