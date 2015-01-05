@@ -11,6 +11,7 @@ Better with examples :
 function namefunc1 {
   # ...
 }
+```
 
 ## arguments
 
