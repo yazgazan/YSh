@@ -50,6 +50,8 @@ Doesnt work with functions since the closing is done in the forked process, righ
 cat &< &>
 ```
 
+Note : this is not compatible with any `<` '>' '<<', etc ...
+
 ## Redirection modifiers
 
 Redirections can be affected by 2 kind of modifiers : fds and &.
