@@ -15,7 +15,8 @@ Open/Create file/buffer for writing as standard output, truncate the file before
 cat > <"file name" | buffer>
 ```
 
-Combination of `<` and `>>`. file/buffer must exists. This may create an infinite loop since the output will be added at the end of the input.
+Combination of `<` and `>>`. file/buffer must exists.
+This may create an infinite loop since the output will be added at the end of the input.
 
 ```bash
 cat <> file/buffer
