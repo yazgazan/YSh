@@ -12,12 +12,6 @@ function namefunc1 {
   # ...
 }
 
-# alternative form:
-function namefunc1;
-  # ...
-endfunction
-```
-
 ## arguments
 
 Named and list arguments :
