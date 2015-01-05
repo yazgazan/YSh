@@ -21,7 +21,7 @@ var1=[]   # for arrays
 var2={}   # for hash tables
 ```
 
-Objects can only contain strings.
+Objects can only contain strings. (opinions needed : should objects be able to contain numbers as well ? other objects ? functions ?)
 Array's keys can only be numbers.
 Hash tables' keys can only be strings.
 
