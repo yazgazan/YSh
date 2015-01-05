@@ -1,7 +1,7 @@
 
 # Functions
 
-Functions definitions replace any alias/binaries/functions previously declared. However, binaries and alias can still reached, functions can'tt.
+Functions definitions replace any alias/binaries/functions previously declared. However, binaries and alias can still be reached, functions can't.
 
 ## Function declaration
 
