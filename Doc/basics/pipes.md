@@ -24,7 +24,7 @@ Notes :
 
 Various modes could be availables to the user **(I need external opinions here ...)** :
 
-- sequential : parallel commands (here the grep commands) should be executed sequentially in the order the pipes first apear (here p1,p2).
+- sequential (not practical) : parallel commands (here the grep commands) should be executed sequentially in the order the pipes first apear (here p1,p2). Problem is, the commands could be "ever-lasting".
 - parallel : parallel commands should be executed in parallel. This mode could have differents behaviors with the outputs :
   1. no synchronization (least ideal solution) : the outputs (here to :res) get mixed without any control
   -  line synchronization : the outputs lines get mixed, keeping lines whole.
