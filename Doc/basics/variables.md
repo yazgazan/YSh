@@ -3,7 +3,7 @@
 
 ## *Opinions needed* :
 
-- should numbers be first-class citizen in the republic of variables ? functions ?
+- should numbers be first-class citizen in the republic of variables ? functions ? booleans ?
   - if so, numbers (and functions ?) in arrays and hash tables ?
 - are objects (arrays and hash tables) first-class citizen ? If so, should objects store first-class citizen or just an elite (strings, ...) ?
 - if function are concidered first-class citizen, lambdas ? Also, how should functions translate when converted to string ? error ?
