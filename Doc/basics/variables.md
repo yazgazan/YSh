@@ -6,11 +6,12 @@
 - should numbers be first-class citizen in the republic of variables ? functions ? booleans ?
   - if so, numbers (and functions ?) in arrays and hash tables ?
 - are objects (arrays and hash tables) first-class citizen ? If so, should objects store first-class citizen or just an elite (strings, ...) ?
-- if function are concidered first-class citizen, lambdas ? Also, how should functions translate when converted to string ? error ?
+- if functions are concidered first-class citizen, lambdas ? Also, how should functions translate when converted to string ? error ?
 
 ## Strings
 
 Strings can be declared with the = operator.
+
 Examples :
 
 ```bash
@@ -28,12 +29,12 @@ var1=[]   # for arrays
 var2={}   # for hash tables
 ```
 
-Objects can only contain strings.
-Array's keys can only be numbers.
-Hash tables' keys can only be strings.
+- Objects can only contain strings.
+- Array's keys can only be numbers.
+- Hash tables' keys can only be strings.
 
 Note : since variables can't be numeric values,
-numeric strings (as "0") will be considered as a numeric 0 when needed.
+numeric strings (such as "0") will be considered as a numeric 0 when needed.
 
 ## Array
 
