@@ -25,4 +25,7 @@ re: fclean all
 demo:
 	make -C ./demo run
 
-.PHONY: all clean fclean re demo
+tests:
+	./tests.sh
+
+.PHONY: all clean fclean re demo tests

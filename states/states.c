@@ -296,7 +296,6 @@ void print_state(t_state *state)
 	print_scopes(state->variables);
 }
 
-// TODO(yazgazan): add tests
 char *exiting_string(e_exiting state)
 {
 	switch (state) {

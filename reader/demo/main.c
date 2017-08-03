@@ -15,12 +15,14 @@ int main(void)
 		return 1;
 	}
 
-	s = read_command(state);
-	if (state->exiting == EXITING) {
-		printf("exiting...\n");
-		return 0;
+	while (42) {
+		s = read_command(state);
+		if (state->exiting == EXITING) {
+			printf("exiting...\n");
+			return 0;
+		}
+		printf("read command line: %s\n", s);
 	}
-	printf("read command line: %s\n", s);
 
 	delete_state(state);
 	return 0;

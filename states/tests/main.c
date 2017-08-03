@@ -16,6 +16,7 @@ int state_add_value();
 int state_get_value();
 int state_get_undefined_value();
 int state_set_value();
+int exiting_string_test();
 
 int main(void)
 {
@@ -31,6 +32,7 @@ int main(void)
 	TEST(state_get_value());
 	TEST(state_get_undefined_value());
 	TEST(state_set_value());
+	TEST(exiting_string_test())
 
 	printf("\n");
 	return 0;
@@ -171,4 +173,19 @@ int state_set_value()
 
 	delete_state(state);
 	return 0;
+}
+
+int exiting_string_test()
+{
+	char *s;
+
+	s = exiting_string(NOT_EXITING);
+	if (s == NULL || strcmp(s, "not exiting")) {
+		return 1;
+	}
+
+	s = exiting_string(EXITING);
+	if (s == NULL || strcmp(s, "exiting")) {
+		return 1;
+	}
 }
