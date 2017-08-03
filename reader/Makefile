@@ -26,6 +26,7 @@ demo:
 	make -C ./demo run
 
 tests:
+	make -C demo
 	./tests.sh
 
 .PHONY: all clean fclean re demo tests
