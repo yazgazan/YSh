@@ -10,7 +10,7 @@ LDFLAGS= -lreadline
 $(NAME): all
 
 all: $(OBJS)
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
