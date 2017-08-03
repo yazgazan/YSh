@@ -18,7 +18,7 @@ implementation:
 - control structures (we can probably get away with only implementing the `&&` and `||`)
 - environment variables
 - locally scoped variables
-- basic job control (C-z and `fg`)
+- basic job control (C-z, C-c, `fg`, `bg`, `jobs`)
 - builtins (`fg` and `export` should be enough to start with)
 - being able to run a script
 - lazy evaluation (necessary for control structures)
