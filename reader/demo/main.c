@@ -14,6 +14,7 @@ int main(void)
 	if (state == NULL) {
 		return 1;
 	}
+	init_from_env(state);
 
 	while (42) {
 		s = read_command(state);

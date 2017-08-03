@@ -27,6 +27,7 @@ typedef struct {
 } t_state;
 
 t_state *new_state(void);
+void init_from_env(t_state *state);
 void delete_state(t_state *state);
 void print_state(t_state *state);
 
