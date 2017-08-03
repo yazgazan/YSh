@@ -9,7 +9,11 @@ t_scope *new_scope(char *id);
 char *copystr(char *src);
 t_value *new_value(char *id, char *value);
 
-char g_global_scope[] = "g";
+char *g_global_scope = "g";
+
+char *g_global_exiting_exiting = "exiting";
+char *g_global_exiting_not_exiting = "not exiting";
+char *g_global_exiting_unknown = "<unknown>";
 
 t_state *new_state(void)
 {
@@ -24,6 +28,7 @@ t_state *new_state(void)
 	state->environ = NULL;
 	state->variables = create_scope(NULL, g_global_scope);
 	state->last_exit_code = 0;
+	state->exiting = NOT_EXITING;
 
 	return state;
 }
@@ -289,4 +294,17 @@ void print_state(t_state *state)
 	print_values(state->environ);
 	printf("\n== Scopes ==\n");
 	print_scopes(state->variables);
+}
+
+// TODO(yazgazan): add tests
+char *exiting_string(e_exiting state)
+{
+	switch (state) {
+		case NOT_EXITING:
+			return g_global_exiting_not_exiting;
+		case EXITING:
+			return g_global_exiting_exiting;
+	}
+
+	return g_global_exiting_unknown;
 }

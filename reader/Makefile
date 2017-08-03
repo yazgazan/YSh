@@ -1,10 +1,10 @@
 
-NAME=	../bin/libstates.so
+NAME=	../bin/libreader.so
 SRCS=	$(shell find . -name '*.c' -not -path './tests/**' -not -path './demo/**')
 OBJS=	$(SRCS:.c=.o)
 CC=		cc
 CFLAGS=	-g -W -Wall -Wshadow -pedantic -fPIC
-LDFLAGS=
+LDFLAGS= -L../bin -lstates -lreadline
 
 $(NAME): all
 
@@ -22,10 +22,7 @@ fclean: clean
 
 re: fclean all
 
-tests:
-	make -C ./tests run
-
 demo:
 	make -C ./demo run
 
-.PHONY: all clean fclean re tests demo
+.PHONY: all clean fclean re demo
