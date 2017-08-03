@@ -1,6 +1,6 @@
 language: c
 
-install: make
+install: make readline-dev
 compiler: clang
 
 script:
