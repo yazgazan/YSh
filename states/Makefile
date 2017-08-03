@@ -3,7 +3,7 @@ NAME=	states.so
 SRCS=	$(shell find . -name '*.c' -not -path './tests/**' -not -path './demo/**')
 OBJS=	$(SRCS:.c=.o)
 CC=		cc
-CFLAGS=	-g -W -Wall -Wshadow -pedantic
+CFLAGS=	-g -W -Wall -Wshadow -pedantic -fPIC
 LDFLAGS=
 
 $(NAME): all
