@@ -4,7 +4,7 @@ SRCS=	main.c \
 		$(shell find ../../states -name '*.c' -not -name 'main.c' -not -path '../tests/**')
 OBJS=	$(SRCS:.c=.o)
 CC=		cc
-CFLAGS=	-g -W -Wall -Wshadow -pedantic
+CFLAGS=	-g -W -Wall -Werror -Wshadow -pedantic
 LDFLAGS= -lreadline
 
 $(NAME): all

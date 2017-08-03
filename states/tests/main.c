@@ -188,4 +188,6 @@ int exiting_string_test()
 	if (s == NULL || strcmp(s, "exiting")) {
 		return 1;
 	}
+
+	return 0;
 }
