@@ -16,6 +16,7 @@ int state_add_value();
 int state_get_value();
 int state_get_undefined_value();
 int state_set_value();
+int exiting_string_test();
 
 int main(void)
 {
@@ -31,6 +32,7 @@ int main(void)
 	TEST(state_get_value());
 	TEST(state_get_undefined_value());
 	TEST(state_set_value());
+	TEST(exiting_string_test());
 
 	printf("\n");
 	return 0;
@@ -69,6 +71,7 @@ int state_get_scope()
 	scope = get_scope(state->variables, "f:bar");
 	if (scope == NULL)
 	{
+		delete_state(state);
 		return 1;
 	}
 
@@ -87,6 +90,7 @@ int state_get_undefined_scope()
 	scope = get_scope(state->variables, "f:buzz");
 	if (scope != NULL)
 	{
+		delete_state(state);
 		return 1;
 	}
 
@@ -98,10 +102,28 @@ int state_get_undefined_scope()
 int state_add_value()
 {
 	t_state *state;
+	t_value *cur;
+	int count;
 
 	state = new_state();
 
 	state->environ = create_value(state->environ, "hello", "world");
+	state->environ = create_value(state->environ, "foo", "bar");
+	state->environ = create_value(state->environ, "test", "123");
+
+	count = 0;
+	cur = state->environ;
+	while (cur != NULL)
+	{
+		count++;
+		cur = cur->next;
+	}
+
+	if (count != 3)
+	{
+		delete_state(state);
+		return 1;
+	}
 
 	delete_state(state);
 	return 0;
@@ -116,11 +138,12 @@ int state_get_value()
 
 	state->environ = create_value(state->environ, "hello", "world");
 	value = get_value(state->environ, "hello");
+
 	if (value == NULL || strcmp(value->value, "world") != 0)
 	{
+		delete_state(state);
 		return 1;
 	}
-
 	delete_state(state);
 	return 0;
 }
@@ -134,11 +157,12 @@ int state_get_undefined_value()
 
 	state->environ = create_value(state->environ, "hello", "world");
 	value = get_value(state->environ, "foo");
+
 	if (value != NULL)
 	{
+		delete_state(state);
 		return 1;
 	}
-
 	delete_state(state);
 	return 0;
 }
@@ -154,21 +178,41 @@ int state_set_value()
 	value = get_value(state->environ, "hello");
 	if (value == NULL || strcmp(value->value, "world") != 0)
 	{
+		delete_state(state);
 		return 1;
 	}
 
 	value = set_value(state->environ, "hello", "mickey");
 	if (value == NULL)
 	{
+		delete_state(state);
 		return 1;
 	}
 
 	value = get_value(state->environ, "hello");
 	if (value == NULL || strcmp(value->value, "mickey") != 0)
 	{
+		delete_state(state);
 		return 1;
 	}
 
 	delete_state(state);
+	return 0;
+}
+
+int exiting_string_test()
+{
+	char *s;
+
+	s = exiting_string(NOT_EXITING);
+	if (s == NULL || strcmp(s, "not exiting")) {
+		return 1;
+	}
+
+	s = exiting_string(EXITING);
+	if (s == NULL || strcmp(s, "exiting")) {
+		return 1;
+	}
+
 	return 0;
 }

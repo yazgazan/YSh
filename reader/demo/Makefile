@@ -1,15 +1,16 @@
-NAME=	states-demo
+NAME=	reader-demo
 SRCS=	main.c \
-		$(shell find .. -name '*.c' -not -name 'main.c' -not -path '../tests/**')
+		$(shell find .. -name '*.c' -not -name 'main.c' -not -path '../tests/**') \
+		$(shell find ../../states -name '*.c' -not -name 'main.c' -not -path '../tests/**')
 OBJS=	$(SRCS:.c=.o)
 CC=		cc
 CFLAGS=	-g -W -Wall -Werror -Wshadow -pedantic
-LDFLAGS=
+LDFLAGS= -lreadline
 
 $(NAME): all
 
 all: $(OBJS)
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<

@@ -5,11 +5,17 @@
 
 #include "states.h"
 
+extern char **environ;
+
 t_scope *new_scope(char *id);
 char *copystr(char *src);
 t_value *new_value(char *id, char *value);
 
-char g_global_scope[] = "g";
+char *g_global_scope = "g";
+
+char *g_global_exiting_exiting = "exiting";
+char *g_global_exiting_not_exiting = "not exiting";
+char *g_global_exiting_unknown = "<unknown>";
 
 t_state *new_state(void)
 {
@@ -24,8 +30,83 @@ t_state *new_state(void)
 	state->environ = NULL;
 	state->variables = create_scope(NULL, g_global_scope);
 	state->last_exit_code = 0;
+	state->exiting = NOT_EXITING;
 
 	return state;
+}
+
+static char **split_env(char *env)
+{
+	int pos, i;
+	char **parts;
+
+	pos = -1;
+	i = 0;
+	while (env[i] != '\0')
+	{
+		if (env[i] == '=')
+		{
+			pos = i;
+		}
+		i++;
+	}
+	if (pos == -1)
+	{
+		return NULL;
+	}
+
+	parts = malloc(sizeof(*parts) * 2);
+	if (parts == NULL)
+	{
+		return NULL;
+	}
+
+	parts[0] = malloc(sizeof(**parts) * (pos+1));
+	if (parts[0] == NULL)
+	{
+		free(parts);
+		return NULL;
+	}
+	parts[0][pos] = '\0';
+	parts[1] = malloc(sizeof(**parts) * (i - pos));
+	if (parts[1] == NULL)
+	{
+		free(parts[0]);
+		free(parts);
+		return NULL;
+	}
+	parts[1][(i-pos)-1] = '\0';
+
+	strncpy(parts[0], env, pos);
+	strncpy(parts[1], env+pos+1, (i - pos) - 1);
+	return parts;
+}
+
+void init_from_env(t_state *state)
+{
+	char **parts;
+	int i;
+
+	(void)state;
+	if (environ == NULL)
+	{
+		return;
+	}
+	i = 0;
+	while (environ[i] != NULL)
+	{
+		parts = split_env(environ[i]);
+		if (parts == NULL)
+		{
+			i++;
+			continue;
+		}
+		state->environ = create_value(state->environ, parts[0], parts[1]);
+		free(parts[0]);
+		free(parts[1]);
+		free(parts);
+		i++;
+	}
 }
 
 void delete_state(t_state *state)
@@ -135,7 +216,7 @@ t_value *create_value(t_value *values, char *name, char *value)
 
 	cur->next = new_value(name, value);
 
-	return cur;
+	return values;
 }
 
 t_value *get_value(t_value *values, char *name)
@@ -289,4 +370,16 @@ void print_state(t_state *state)
 	print_values(state->environ);
 	printf("\n== Scopes ==\n");
 	print_scopes(state->variables);
+}
+
+char *exiting_string(e_exiting state)
+{
+	switch (state) {
+		case NOT_EXITING:
+			return g_global_exiting_not_exiting;
+		case EXITING:
+			return g_global_exiting_exiting;
+	}
+
+	return g_global_exiting_unknown;
 }
