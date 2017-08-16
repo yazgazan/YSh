@@ -8,7 +8,7 @@
 extern char **environ;
 
 t_scope *new_scope(char *id);
-char *copystr(char *src);
+static char *copystr(char *src);
 t_value *new_value(char *id, char *value);
 
 char *g_global_scope = "g";
@@ -180,7 +180,7 @@ t_scope *new_scope(char *id)
 	return scope;
 }
 
-char *copystr(char *src)
+static char *copystr(char *src)
 {
 	char *dst;
 	size_t len;
