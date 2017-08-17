@@ -1,27 +1,5 @@
 
-NAME=	../bin/libparser.so
-SRCS=	$(shell find . -name '*.c' -not -path './tests/**' -not -path './demo/**') \
-		$(shell find ../ast -name '*.c')
-OBJS=	$(SRCS:.c=.o)
-CC=		cc
-CFLAGS=	-g -W -Wall -Werror -Wshadow -pedantic -fPIC
-LDFLAGS=
-
-$(NAME): all
-
-all: $(OBJS)
-	$(CC) -shared $(CFLAGS) $(LDFLAGS) -o $(NAME) $(OBJS)
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $<
-
-clean:
-	rm -vf $(OBJS)
-
-fclean: clean
-	rm -vf $(NAME)
-
-re: fclean all
+all:
 
 tests:
 	make -C ./tests run
@@ -29,4 +7,4 @@ tests:
 demo:
 	make -C ./demo run
 
-.PHONY: all clean fclean re tests demo
+.PHONY: all tests demo
