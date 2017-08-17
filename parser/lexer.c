@@ -201,21 +201,21 @@ t_token *lex(char *str)
 		new = lex_read_literal(str, i);
 		if (new <= 0)
 		{
-			// TODO(yazgazan): error managment
+			/* TODO(yazgazan): error managment */
 			printf("error: no literal to read at %d\n", i);
 			return root;
 		}
 		data = copysubstr(str, i, new);
 		if (data == NULL)
 		{
-			// TODO(yazgazan): error managment
+			/* TODO(yazgazan): error managment */
 			printf("error: failed to copy substr (start = %d, end = %d)\n", i, new);
 			return root;
 		}
 		token = new_token(token_type_literal, data);
 		free(data);
 		token->context.raw_pos = i;
-		// TODO(yazgazan): excerpt
+		/* TODO(yazgazan): excerpt */
 		token->context.excerpt_pos = 0;
 		token->context.excerpt = NULL;
 

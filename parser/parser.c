@@ -34,7 +34,7 @@ static t_node *read_literal_node(t_token **tokens)
 	{
 		return NULL;
 	}
-	// TODO(yazgazan): handle more types
+	/* TODO(yazgazan): handle more types */
 	lit = new_node(node_type_literal_string, lit_id->data);
 	if (lit == NULL)
 	{
@@ -49,10 +49,8 @@ static t_node *read_literal_node(t_token **tokens)
 
 static t_node *read_args(t_token **tokens)
 {
-	t_token *root;
 	t_node *args;
 
-	root = *tokens;
 	args = read_literal_node(tokens);
 	if (args == NULL)
 	{
