@@ -22,6 +22,7 @@ typedef struct s_scope {
 typedef struct {
 	t_value *environ;
 	t_scope *variables;
+
 	int last_exit_code;
 	e_exiting exiting;
 } t_state;

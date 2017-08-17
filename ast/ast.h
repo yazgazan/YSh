@@ -25,6 +25,7 @@ typedef struct s_node {
 t_node *new_node(e_node_type type, char *data);
 void delete_node(t_node *node);
 t_node *add_node(t_node *root, t_node *node);
+int count_nodes(t_node *nodes);
 void print_node(t_node *node);
 
 #endif
