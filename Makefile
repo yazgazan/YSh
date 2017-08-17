@@ -24,7 +24,7 @@ fclean: clean
 
 re: fclean all
 
-tests: tests_state tests_reader
+tests: tests_state tests_reader tests_parser
 
 tests_state:
 	make -C states tests
@@ -32,5 +32,8 @@ tests_state:
 tests_reader:
 	make -C reader tests
 
-.PHONY: all states clean fclean re tests tests_state tests_reader
+tests_parser:
+	make -C parser tests
+
+.PHONY: all states clean fclean re tests tests_state tests_reader tests_parser
 
