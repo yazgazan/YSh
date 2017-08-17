@@ -4,6 +4,8 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <sys/wait.h>
+
 #include "interpreter.h"
 
 static char *copystr(char *src);
