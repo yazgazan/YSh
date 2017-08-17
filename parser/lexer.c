@@ -12,7 +12,7 @@ t_token *new_token(e_token_type type, char *data)
 {
 	t_token *token;
 
-	token = malloc(sizeof(*token));
+	token = calloc(1, sizeof(*token));
 	if (token == NULL)
 	{
 		return NULL;
@@ -21,7 +21,7 @@ t_token *new_token(e_token_type type, char *data)
 	token->type = type;
 	token->next = NULL;
 	token->data = copystr(data);
-	if (token->data == NULL)
+	if (data != NULL && token->data == NULL)
 	{
 		free(token);
 		return NULL;
@@ -65,7 +65,7 @@ t_token *copy_token(t_token *token)
 {
 	t_token *ret;
 
-	ret = malloc(sizeof(*ret));
+	ret = calloc(1, sizeof(*ret));
 	if (ret == NULL)
 	{
 		return ret;
@@ -96,6 +96,9 @@ void print_token(t_token *token)
 	switch (token->type) {
 		case token_type_literal:
 			printf("(%s)", token->data);
+			break;
+		case token_type_empty:
+			printf("<empty>");
 			break;
 		default:
 			printf("<unknown type (%s)>", token->data);
@@ -225,6 +228,17 @@ t_token *lex(char *str)
 			i = new;
 		}
 	}
+	if (root == NULL && lex_read_EOF(str, i) != -1)
+	{
+		t_token *token;
+
+		token = new_token(token_type_empty, NULL);
+		if (token == NULL)
+		{
+			return NULL;
+		}
+		root = add_token(root, token);
+	}
 
 	return root;
 }
@@ -239,7 +253,7 @@ static char *copystr(char *src)
 		return NULL;
 	}
 	len = strlen(src);
-	dst = malloc(sizeof(*dst) * len + 1);
+	dst = calloc(len+1, sizeof(*dst));
 	if (dst == NULL)
 	{
 		return NULL;
@@ -259,7 +273,7 @@ static char *copysubstr(char *src, int start, int end)
 	}
 	len = end - start;
 
-	dst = malloc(sizeof(*dst) * len + 1);
+	dst = calloc(len+1, sizeof(*dst));
 	if (dst == NULL)
 	{
 		return NULL;

@@ -1,6 +1,7 @@
 
 NAME=	../bin/libparser.so
-SRCS=	$(shell find . -name '*.c' -not -path './tests/**' -not -path './demo/**')
+SRCS=	$(shell find . -name '*.c' -not -path './tests/**' -not -path './demo/**') \
+		$(shell find ../ast -name '*.c')
 OBJS=	$(SRCS:.c=.o)
 CC=		cc
 CFLAGS=	-g -W -Wall -Werror -Wshadow -pedantic -fPIC

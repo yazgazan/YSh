@@ -11,7 +11,7 @@ t_node *new_node(e_node_type type, char *data)
 {
 	t_node *node;
 
-	node = malloc(sizeof(*node));
+	node = calloc(1, sizeof(*node));
 	if (node == NULL)
 	{
 		return NULL;
@@ -25,7 +25,6 @@ t_node *new_node(e_node_type type, char *data)
 		return NULL;
 	}
 
-	node->value.type = value_type_undefined;
 	node->context.raw_pos = 0;
 	node->context.excerpt_pos = 0;
 	node->context.excerpt = NULL;
@@ -111,7 +110,7 @@ static char *copystr(char *src)
 		return NULL;
 	}
 	len = strlen(src);
-	dst = malloc(sizeof(*dst) * len + 1);
+	dst = calloc(len+1, sizeof(*dst));
 	if (dst == NULL)
 	{
 		return NULL;

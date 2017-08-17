@@ -6,22 +6,6 @@ typedef enum {
 	node_type_literal_string
 } e_node_type;
 
-typedef enum {
-	value_type_string,
-	value_type_integer,
-	value_type_undefined
-} e_value_type;
-
-typedef union {
-	char *string;
-	long int integer;
-} u_value;
-
-typedef struct {
-	e_value_type type;
-	u_value value;
-} s_value;
-
 typedef struct {
 	int raw_pos;
 	int excerpt_pos;
@@ -32,7 +16,6 @@ typedef struct s_node {
 	e_node_type type;
 	char *data;
 
-	s_value value;
 	s_node_context context;
 	struct s_node *children;
 

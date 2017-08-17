@@ -3,7 +3,8 @@
 #define _LEXER_H_
 
 typedef enum {
-	token_type_literal
+	token_type_literal,
+	token_type_empty
 } e_token_type;
 
 typedef struct {

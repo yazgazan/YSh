@@ -4,8 +4,6 @@
 
 #include "parser.h"
 
-static char *copystr(char *src);
-
 static t_token *read_literal(t_token **tokens)
 {
 	t_token *token;
@@ -40,15 +38,6 @@ static t_node *read_literal_node(t_token **tokens)
 	lit = new_node(node_type_literal_string, lit_id->data);
 	if (lit == NULL)
 	{
-		*tokens = root;
-		return NULL;
-	}
-
-	lit->value.type = value_type_string;
-	lit->value.value.string = copystr(lit->data);
-	if (lit->value.value.string == NULL)
-	{
-		delete_node(lit);
 		*tokens = root;
 		return NULL;
 	}
@@ -97,16 +86,6 @@ static t_node *read_command(t_token **tokens)
 	cmd->context.raw_pos = cmd_id->context.raw_pos;
 	cmd->context.excerpt_pos = cmd_id->context.excerpt_pos;
 	cmd->context.excerpt = cmd_id->context.excerpt;
-	cmd->value.type = value_type_string;
-	cmd->value.value.string = copystr(cmd->data);
-	if (cmd->value.value.string == NULL)
-	{
-		free(cmd->data);
-		free(cmd);
-		*tokens = root;
-
-		return NULL;
-	}
 
 	cmd->children = read_args(tokens);
 
@@ -116,23 +95,4 @@ static t_node *read_command(t_token **tokens)
 t_node *parse(t_token *tokens)
 {
 	return read_command(&tokens);
-}
-
-static char *copystr(char *src)
-{
-	char *dst;
-	int len;
-
-	if (src == NULL)
-	{
-		return NULL;
-	}
-	len = strlen(src);
-	dst = malloc(sizeof(*dst) * len + 1);
-	if (dst == NULL)
-	{
-		return NULL;
-	}
-
-	return strncpy(dst, src, len);
 }
