@@ -24,32 +24,39 @@ int main(void)
 		s = read_command(state);
 		if (state->exiting == EXITING) {
 			printf("exiting...\n");
-			return 0;
+			break;
 		}
 		tokens = lex(s);
 		if (tokens == NULL)
 		{
 			printf("failed to lex\n");
+			delete_state(state);
+			free(s);
 			return 1;
 		}
 		if (tokens->type == token_type_empty)
 		{
 			delete_token(tokens);
+			free(s);
 			continue;
 		}
 		ast = parse(tokens);
 		if (ast == NULL)
 		{
-			delete_token(tokens);
 			printf("failed to parse\n");
+			delete_token(tokens);
+			delete_state(state);
+			free(s);
 			return 1;
 		}
 		print_node(ast);
 		delete_token(tokens);
 		delete_node(ast);
+		free(s);
 	}
 
 	delete_state(state);
+	free(s);
 	return 0;
 }
 
