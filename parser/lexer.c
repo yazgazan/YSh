@@ -181,6 +181,85 @@ int lex_read_EOF(char *str, int pos)
 	return -1;
 }
 
+static char *excerpt(char *str, int pos)
+{
+	size_t start, end;
+
+	// TODO(yazgazan): use newlines as boundaries and transform tabs to spaces
+	if (pos >= 5)
+	{
+		start = pos - 5;
+	}
+	else
+	{
+		start = 0;
+	}
+	end = pos + 10;
+	if (end >= strlen(str))
+	{
+		end = strlen(str)-1;
+	}
+
+	return copysubstr(str, start, end);
+}
+
+static void print_error(char *str, int pos, char *msg)
+{
+	size_t start;
+	char *exc;
+
+	if (pos >= 5)
+	{
+		start = pos - 5;
+	}
+	else
+	{
+		start = 0;
+	}
+
+	exc = excerpt(str, pos);
+	if (exc == NULL)
+	{
+		printf("Error: %s\n", msg);
+		return;
+	}
+	printf("%s\n", exc);
+	while (start != 0)
+	{
+		printf(" ");
+		start--;
+	}
+	printf("^\nError: %s\n", msg);
+}
+
+static void set_excerpt(char *str, int pos, s_token_context *context)
+{
+	size_t start, end;
+
+	// TODO(yazgazan): use newlines as boundaries and transform tabs to spaces
+	if (pos >= 5)
+	{
+		start = pos - 5;
+	}
+	else
+	{
+		start = 0;
+	}
+	end = pos + 10;
+	if (end >= strlen(str))
+	{
+		end = strlen(str)-1;
+	}
+
+	context->excerpt = copysubstr(str, start, end);
+	if (context->excerpt == NULL)
+	{
+		context->excerpt_pos = 0;
+		return;
+	}
+	context->excerpt_pos = pos - start;
+}
+
 t_token *lex(char *str)
 {
 	int i;
@@ -201,23 +280,19 @@ t_token *lex(char *str)
 		new = lex_read_literal(str, i);
 		if (new <= 0)
 		{
-			/* TODO(yazgazan): error managment */
-			printf("error: no literal to read at %d\n", i);
+			print_error(str, i, "no literal to read");
 			return root;
 		}
 		data = copysubstr(str, i, new);
 		if (data == NULL)
 		{
-			/* TODO(yazgazan): error managment */
-			printf("error: failed to copy substr (start = %d, end = %d)\n", i, new);
-			return root;
+			delete_token(root);
+			return NULL;
 		}
 		token = new_token(token_type_literal, data);
 		free(data);
 		token->context.raw_pos = i;
-		/* TODO(yazgazan): excerpt */
-		token->context.excerpt_pos = 0;
-		token->context.excerpt = NULL;
+		set_excerpt(str, i, &token->context);
 
 		root = add_token(root, token);
 		i = new;
