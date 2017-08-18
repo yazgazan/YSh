@@ -185,7 +185,7 @@ static char *excerpt(char *str, int pos)
 {
 	size_t start, end;
 
-	// TODO(yazgazan): use newlines as boundaries and transform tabs to spaces
+	/* TODO(yazgazan): use newlines as boundaries and transform tabs to spaces */
 	if (pos >= 5)
 	{
 		start = pos - 5;
@@ -236,7 +236,7 @@ static void set_excerpt(char *str, int pos, s_token_context *context)
 {
 	size_t start, end;
 
-	// TODO(yazgazan): use newlines as boundaries and transform tabs to spaces
+	/* TODO(yazgazan): use newlines as boundaries and transform tabs to spaces */
 	if (pos >= 5)
 	{
 		start = pos - 5;
