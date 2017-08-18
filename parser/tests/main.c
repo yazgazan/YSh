@@ -174,11 +174,131 @@ void test_lexer()
 	TEST(test_lexer_n_lit(twolits("foo", "bar"), " \tfoo \nbar"));
 }
 
+int test_parser_null()
+{
+	t_node *ast;
+
+	ast = parse(NULL);
+
+	if (ast != NULL)
+	{
+		return 1;
+	}
+
+	return 0;
+}
+
+int test_parser_empty(char *s)
+{
+	t_token *tokens;
+	t_node *ast;
+
+	tokens = lex(s);
+	if (tokens == NULL)
+	{
+		return 1;
+	}
+	ast = parse(tokens);
+
+	if (ast != NULL)
+	{
+		return 1;
+	}
+
+	return 0;
+}
+
+int test_parser_simple_cmd(char *expect, char *s)
+{
+	t_token *tokens;
+	t_node *ast;
+
+	tokens = lex(s);
+	if (tokens == NULL)
+	{
+		return 1;
+	}
+	ast = parse(tokens);
+
+	if (ast == NULL)
+	{
+		return 1;
+	}
+	if (ast->type != node_type_command)
+	{
+		return 1;
+	}
+	if (strcmp(expect, ast->data) != 0)
+	{
+		return 1;
+	}
+	if (ast->next != NULL || ast->children != NULL)
+	{
+		return 1;
+	}
+
+	return 0;
+}
+
+int test_parser_one_arg_cmd(char *cmd, char *arg, char *s)
+{
+	t_token *tokens;
+	t_node *ast;
+
+	tokens = lex(s);
+	if (tokens == NULL)
+	{
+		return 1;
+	}
+	ast = parse(tokens);
+
+	if (ast == NULL)
+	{
+		return 1;
+	}
+	if (ast->type != node_type_command)
+	{
+		return 1;
+	}
+	if (strcmp(cmd, ast->data) != 0)
+	{
+		return 1;
+	}
+	if (ast->next != NULL || ast->children == NULL)
+	{
+		return 1;
+	}
+	if (strcmp(arg, ast->children->data) != 0)
+	{
+		return 1;
+	}
+	if (ast->children->next != NULL || ast->children->children != NULL)
+	{
+		return 1;
+	}
+
+	return 0;
+}
+
 void test_parser()
 {
-	printf("Running parser tests... (TODO)\n");
+	printf("Running parser tests...\n");
 
-	/* TODO(yazgazan): write tests for parser */
+	TEST(test_parser_null());
+
+	TEST(test_parser_empty(""));
+	TEST(test_parser_empty("  "));
+	TEST(test_parser_empty("\n"));
+
+	TEST(test_parser_simple_cmd("foo", "foo"));
+	TEST(test_parser_simple_cmd("foo", "  foo"));
+	TEST(test_parser_simple_cmd("foo", " foo\r\n"));
+	TEST(test_parser_simple_cmd("f", "f"));
+
+	TEST(test_parser_one_arg_cmd("foo", "bar", "foo bar"));
+	TEST(test_parser_one_arg_cmd("foo", "bar", "  foo  bar \n"));
+	TEST(test_parser_one_arg_cmd("foo", "bar", " foo\r\nbar\n")); /* should fail in the future */
+	TEST(test_parser_one_arg_cmd("f", "b", "f b"));
 }
 
 static char *copystr(char *src)
