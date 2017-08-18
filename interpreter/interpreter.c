@@ -13,10 +13,7 @@ static char *copystr(char *src);
 static int exec_cmd(char *path, char *argv[], char *envp[])
 {
 	pid_t pid;
-
-	(void)path;
-	(void)argv;
-	(void)envp;
+	int ret;
 
 	pid = fork();
 	if (pid != 0)
@@ -39,15 +36,20 @@ static int exec_cmd(char *path, char *argv[], char *envp[])
 		}
 	}
 
-	execve(path, argv, envp);
+	ret = execve(path, argv, envp);
 
-	printf("something went wrong when executing the command\n");
+	if (ret == -1)
+	{
+		perror(path);
+	} else {
+		printf("something went wrong when executing the command\n");
+	}
 	exit(1);
 }
 
-static char *get_cmd_path(t_node *cmd)
+static char *get_cmd_path(t_state *state, t_node *cmd)
 {
-	return cmd->data;
+	return search_path(state->path, cmd->data);
 }
 
 static char *evaluate_arg(t_node *arg)
@@ -91,11 +93,78 @@ static char **get_cmd_args(char *path, t_node *args)
 	return argv;
 }
 
+static char *join_env_value(char *key, char *value)
+{
+	char *s;
+	int key_len, value_len;
+
+	key_len = strlen(key);
+	value_len = strlen(value);
+	s = calloc(key_len+value_len+2, sizeof(*s));
+	if (s == NULL)
+	{
+		return NULL;
+	}
+	if (strncpy(s, key, key_len) == NULL)
+	{
+		free(s);
+		return NULL;
+	}
+	s[key_len] = '=';
+	if (strncat(s, value, value_len) == NULL)
+	{
+		free(s);
+		return NULL;
+	}
+
+	return s;
+}
 static char **get_cmd_env(t_state *state)
 {
-	(void)state;
+	t_value *value;
+	char **env;
+	int count;
+	int i;
 
-	return calloc(1, sizeof(char*));
+	count = count_values(state->environ);
+	env = calloc(count+1, sizeof(*env));
+	if (env == NULL)
+	{
+		return NULL;
+	}
+
+	value = state->environ;
+	i = 0;
+	while (value != NULL)
+	{
+		env[i] = join_env_value(value->name, value->value);
+		if (env[i] != NULL)
+		{
+			i++;
+		}
+		value = value->next;
+	}
+	/*
+	 * - populate
+	 */
+	return env;
+}
+
+static void free_values(char **values)
+{
+	int i;
+
+	if (values == NULL)
+	{
+		return;
+	}
+	i = 0;
+	while (values[i] != NULL)
+	{
+		free(values[i]);
+		i++;
+	}
+	free(values);
 }
 
 static int execute_command(t_state *state, t_node *cmd)
@@ -103,29 +172,36 @@ static int execute_command(t_state *state, t_node *cmd)
 	char *path;
 	char **args;
 	char **env;
+	int ret;
 
-	path = get_cmd_path(cmd);
+	path = get_cmd_path(state, cmd);
 	if (path == NULL)
 	{
-		/* TODO(yazgazan): error handling */
+		printf("%s: Command not found\n", cmd->data);
 		return 1;
 	}
 
 	args = get_cmd_args(path, cmd->children);
 	if (args == NULL)
 	{
-		/* TODO(yazgazan): error handling */
-		return 1;
+		free(path);
+		return -1;
 	}
 
 	env = get_cmd_env(state);
-	if (args == NULL)
+	if (env == NULL)
 	{
-		/* TODO(yazgazan): error handling */
-		return 1;
+		free_values(args);
+		free(path);
+		return -1;
 	}
 
-	return exec_cmd(path, args, env);
+	ret = exec_cmd(path, args, env);
+
+	free_values(args);
+	free_values(env);
+	free(path);
+	return ret;
 }
 
 static int execute_statement(t_state *state, t_node *stmt)
@@ -135,7 +211,7 @@ static int execute_statement(t_state *state, t_node *stmt)
 			return execute_command(state, stmt);
 		default:
 			printf("cannot execute statement of type %d\n", stmt->type);
-			return 1;
+			return -1;
 	}
 }
 
@@ -145,10 +221,11 @@ int interpret(t_state *state, t_node *ast)
 
 	while (ast != NULL) {
 		ret = execute_statement(state, ast);
-		if (ret != 0)
+		if (ret == -1)
 		{
 			return ret;
 		}
+		state->last_exit_code = ret;
 		ast = ast->next;
 	}
 

@@ -20,6 +20,7 @@ int main(void)
 		return 1;
 	}
 	init_from_env(state);
+	init_reader();
 
 	while (42) {
 		s = read_command(state);
