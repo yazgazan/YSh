@@ -17,23 +17,32 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -vf $(OBJS)
+	find . -name '*.o' -exec rm -v {} \;
 
-fclean: clean
+fclean: clean fclean_state fclean_reader fclean_parser
 	rm -vf $(NAME)
 
 re: fclean all
 
 tests: tests_state tests_reader tests_parser
 
+fclean_state:
+	make -C states fclean
+
 tests_state:
 	make -C states tests
+
+fclean_reader:
+	make -C reader fclean
 
 tests_reader:
 	make -C reader tests
 
+fclean_parser:
+	make -C parser fclean
+
 tests_parser:
 	make -C parser tests
 
-.PHONY: all states clean fclean re tests tests_state tests_reader tests_parser
+.PHONY: all states clean fclean re tests fclean_sta tests_state fclean_reader tests_reader fclean_parser tests_parser
 
