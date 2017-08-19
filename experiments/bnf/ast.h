@@ -41,13 +41,13 @@ typedef union {
 	t_expr_id id;
 } u_expr;
 
-typedef struct s_expr {
+struct s_expr {
 	e_expr_type type;
 	e_expr_repeat repeat;
 	u_expr data;
 
 	struct s_expr *next;
-} t_expr;
+};
 
 typedef struct s_rule {
 	char *name;
