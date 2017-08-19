@@ -69,7 +69,7 @@ void free_expr(t_expr *expr)
 	{
 		return;
 	}
-	// TODO(yazgazan): free expr->data
+	/* TODO(yazgazan): free expr->data */
 	if (expr->next != NULL)
 	{
 		free_expr(expr->next);
