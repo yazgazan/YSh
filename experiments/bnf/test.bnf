@@ -1,0 +1,12 @@
+
+main: toto*;
+
+toto: titi (
+	"hi"? | titi
+	# inline comment
+)*;
+
+#toto: "hi"?;
+
+titi: "hop" | "yo\n"*;
+

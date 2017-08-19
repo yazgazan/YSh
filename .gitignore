@@ -63,3 +63,5 @@ reader/demo/reader-demo
 parser/tests/parser-tests
 parser/demo/parser-demo
 bin/ysh
+bin/bnf
+
