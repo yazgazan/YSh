@@ -60,3 +60,6 @@ dkms.conf
 states/demo/states-demo
 states/tests/states-tests
 reader/demo/reader-demo
+parser/tests/parser-tests
+parser/demo/parser-demo
+bin/ysh

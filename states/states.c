@@ -8,7 +8,7 @@
 extern char **environ;
 
 t_scope *new_scope(char *id);
-char *copystr(char *src);
+static char *copystr(char *src);
 t_value *new_value(char *id, char *value);
 
 char *g_global_scope = "g";
@@ -21,7 +21,7 @@ t_state *new_state(void)
 {
 	t_state *state;
 
-	state = malloc(sizeof(*state));
+	state = calloc(1, sizeof(*state));
 	if (state == NULL)
 	{
 		return NULL;
@@ -55,20 +55,20 @@ static char **split_env(char *env)
 		return NULL;
 	}
 
-	parts = malloc(sizeof(*parts) * 2);
+	parts = calloc(2, sizeof(*parts));
 	if (parts == NULL)
 	{
 		return NULL;
 	}
 
-	parts[0] = malloc(sizeof(**parts) * (pos+1));
+	parts[0] = calloc(pos+1, sizeof(**parts));
 	if (parts[0] == NULL)
 	{
 		free(parts);
 		return NULL;
 	}
 	parts[0][pos] = '\0';
-	parts[1] = malloc(sizeof(**parts) * (i - pos));
+	parts[1] = calloc(i-pos, sizeof(**parts));
 	if (parts[1] == NULL)
 	{
 		free(parts[0]);
@@ -166,7 +166,7 @@ t_scope *new_scope(char *id)
 		return NULL;
 	}
 
-	scope = malloc(sizeof(*scope));
+	scope = calloc(1, sizeof(*scope));
 	if (scope == NULL)
 	{
 		free(id_cpy);
@@ -180,7 +180,7 @@ t_scope *new_scope(char *id)
 	return scope;
 }
 
-char *copystr(char *src)
+static char *copystr(char *src)
 {
 	char *dst;
 	size_t len;
@@ -190,7 +190,7 @@ char *copystr(char *src)
 		return NULL;
 	}
 	len = strlen(src);
-	dst = malloc(sizeof(*dst) * len + 1);
+	dst = calloc(len+1, sizeof(*dst));
 
 	return strncpy(dst, src, len);
 }
@@ -298,7 +298,7 @@ t_value *new_value(char *id, char *value)
 		return NULL;
 	}
 
-	val = malloc(sizeof(*val));
+	val = calloc(1, sizeof(*val));
 	if (val == NULL)
 	{
 		free(id_cpy);

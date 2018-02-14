@@ -1,31 +1,30 @@
 
-all: states reader
+NAME=	./bin/ysh
 
-states:
-	make -C states
+SRCS=	main.c \
+		$(shell find . -name '*.c' -not -name 'main.c' -not -path './tests/**' -not -path './demo/**')
+OBJS=	$(SRCS:.c=.o)
+CC=		cc
+CFLAGS=	-g -W -Wall -Werror -Wshadow -pedantic
+LDFLAGS= -lreadline
 
-reader:
-	make -C reader
+all: $(NAME)
 
-clean: clean_state clean_reader
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
 
-clean_state:
-	make -C states clean
+%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
 
-clean_reader:
-	make -C reader clean
+clean:
+	rm -vf $(OBJS)
 
-fclean: fclean_state fclean_reader
-
-fclean_state:
-	make -C states fclean
-
-fclean_reader:
-	make -C reader fclean
+fclean: clean
+	rm -vf $(NAME)
 
 re: fclean all
 
-tests: tests_state tests_reader
+tests: tests_state tests_reader tests_parser
 
 tests_state:
 	make -C states tests
@@ -33,5 +32,8 @@ tests_state:
 tests_reader:
 	make -C reader tests
 
-.PHONY: all states reader clean clean_state clean_reader fclean fclean_state fclean_reader re tests tests_state tests_reader
+tests_parser:
+	make -C parser tests
+
+.PHONY: all states clean fclean re tests tests_state tests_reader tests_parser
 
