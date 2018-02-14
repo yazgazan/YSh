@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include <readline/readline.h>
+#include <readline/history.h>
 
 #include "reader.h"
 #include "../states/states.h"
@@ -9,6 +10,11 @@
 char *g_default_prompt = "> ";
 char *g_prompt_key = "PS1";
 static char *get_prompt(t_state *state);
+
+void init_reader()
+{
+	using_history();
+}
 
 char *read_command(t_state *state)
 {
@@ -20,6 +26,7 @@ char *read_command(t_state *state)
 		return NULL;
 	}
 
+	add_history(s);
 	return s;
 }
 

@@ -21,15 +21,20 @@ typedef struct s_scope {
 
 typedef struct {
 	t_value *environ;
+	/* TODO(yazgazan): update path when $PATH is set */
+	t_value *path;
 	t_scope *variables;
+
 	int last_exit_code;
 	e_exiting exiting;
 } t_state;
 
 t_state *new_state(void);
 void init_from_env(t_state *state);
+void init_path_from_env(t_state *state);
 void delete_state(t_state *state);
 void print_state(t_state *state);
+char *search_path(t_value *path, char *name);
 
 t_scope *create_scope(t_scope *scopes, char *id);
 void delete_scopes(t_scope *scopes);
@@ -40,6 +45,7 @@ t_value *create_value(t_value *values, char *name, char *value);
 void delete_values(t_value *values);
 t_value *get_value(t_value *values, char *name);
 t_value *set_value(t_value *values, char *name, char *value);
+int count_values(t_value *values);
 void print_values(t_value *values);
 
 char *exiting_string(e_exiting state);

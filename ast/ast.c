@@ -74,6 +74,20 @@ t_node *add_node(t_node *root, t_node *node)
 	return root;
 }
 
+int count_nodes(t_node *nodes)
+{
+	int count;
+
+	count = 0;
+	while (nodes != NULL)
+	{
+		count++;
+		nodes = nodes->next;
+	}
+
+	return count;
+}
+
 void print_node(t_node *node)
 {
 	switch (node->type)
