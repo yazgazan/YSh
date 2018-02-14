@@ -4,7 +4,7 @@
 
 #include "../states.h"
 
-#define TEST(x) if(x != 0) { printf("FAIL "#x"\n"); } else { printf("OK   "#x"\n"); }
+#define TEST(x) if(x != 0) { printf("FAIL "#x"\n"); failed = 1; } else { printf("OK   "#x"\n"); }
 
 int state_lifetime_no_crash();
 
@@ -17,6 +17,8 @@ int state_get_value();
 int state_get_undefined_value();
 int state_set_value();
 int exiting_string_test();
+
+int failed = 0;
 
 int main(void)
 {
@@ -35,7 +37,8 @@ int main(void)
 	TEST(exiting_string_test());
 
 	printf("\n");
-	return 0;
+
+	return failed;
 }
 
 int state_lifetime_no_crash()

@@ -5,8 +5,6 @@
 
 #include "states.h"
 
-extern char **environ;
-
 t_scope *new_scope(char *id);
 static char *copystr(char *src);
 t_value *new_value(char *id, char *value);
@@ -28,6 +26,7 @@ t_state *new_state(void)
 	}
 
 	state->environ = NULL;
+	state->path = NULL;
 	state->variables = create_scope(NULL, g_global_scope);
 	state->last_exit_code = 0;
 	state->exiting = NOT_EXITING;
@@ -35,84 +34,11 @@ t_state *new_state(void)
 	return state;
 }
 
-static char **split_env(char *env)
-{
-	int pos, i;
-	char **parts;
-
-	pos = -1;
-	i = 0;
-	while (env[i] != '\0')
-	{
-		if (env[i] == '=')
-		{
-			pos = i;
-		}
-		i++;
-	}
-	if (pos == -1)
-	{
-		return NULL;
-	}
-
-	parts = calloc(2, sizeof(*parts));
-	if (parts == NULL)
-	{
-		return NULL;
-	}
-
-	parts[0] = calloc(pos+1, sizeof(**parts));
-	if (parts[0] == NULL)
-	{
-		free(parts);
-		return NULL;
-	}
-	parts[0][pos] = '\0';
-	parts[1] = calloc(i-pos, sizeof(**parts));
-	if (parts[1] == NULL)
-	{
-		free(parts[0]);
-		free(parts);
-		return NULL;
-	}
-	parts[1][(i-pos)-1] = '\0';
-
-	strncpy(parts[0], env, pos);
-	strncpy(parts[1], env+pos+1, (i - pos) - 1);
-	return parts;
-}
-
-void init_from_env(t_state *state)
-{
-	char **parts;
-	int i;
-
-	(void)state;
-	if (environ == NULL)
-	{
-		return;
-	}
-	i = 0;
-	while (environ[i] != NULL)
-	{
-		parts = split_env(environ[i]);
-		if (parts == NULL)
-		{
-			i++;
-			continue;
-		}
-		state->environ = create_value(state->environ, parts[0], parts[1]);
-		free(parts[0]);
-		free(parts[1]);
-		free(parts);
-		i++;
-	}
-}
-
 void delete_state(t_state *state)
 {
 	delete_scopes(state->variables);
 	delete_values(state->environ);
+	delete_values(state->path);
 	free(state);
 }
 
@@ -344,6 +270,20 @@ void print_scopes(t_scope *scopes)
 		printf("\n");
 		scopes = scopes->next;
 	}
+}
+
+int count_values(t_value *values)
+{
+	int count;
+
+	count = 0;
+	while (values != NULL)
+	{
+		count++;
+		values = values->next;
+	}
+
+	return count;
 }
 
 void print_values(t_value *values)

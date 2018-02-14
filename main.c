@@ -6,6 +6,7 @@
 #include "./reader/reader.h"
 #include "./states/states.h"
 #include "./parser/parser.h"
+#include "./interpreter/interpreter.h"
 
 int main(void)
 {
@@ -19,6 +20,7 @@ int main(void)
 		return 1;
 	}
 	init_from_env(state);
+	init_reader();
 
 	while (42) {
 		s = read_command(state);
@@ -49,7 +51,16 @@ int main(void)
 			free(s);
 			return 1;
 		}
-		print_node(ast);
+		if (interpret(state, ast) != 0)
+		{
+			printf("failed to interpret\n");
+			delete_token(tokens);
+			delete_node(ast);
+			delete_state(state);
+			free(s);
+			return 1;
+		}
+
 		delete_token(tokens);
 		delete_node(ast);
 		free(s);
