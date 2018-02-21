@@ -8,7 +8,7 @@
 static char *copystr(char *src);
 static char *copysubstr(char *src, int start, int end);
 
-t_token *new_token(e_token_type type, char *data)
+t_token *new_token(e_token_type type, char *data, int length)
 {
 	t_token *token;
 
@@ -19,6 +19,7 @@ t_token *new_token(e_token_type type, char *data)
 	}
 
 	token->type = type;
+	token->length = length;
 	token->next = NULL;
 	token->data = copystr(data);
 	if (data != NULL && token->data == NULL)
@@ -114,6 +115,21 @@ void print_token(t_token *token)
 	}
 }
 
+void print_token_type(e_token_type type)
+{
+	switch (type) {
+		case token_type_literal:
+			printf("literal\n");
+			break;
+		case token_type_empty:
+			printf("empty\n");
+			break;
+		default:
+			printf("<uknown type (%d)>\n", type);
+			break;
+	}
+}
+
 int is_whitespace(char c)
 {
 	if (c == ' ' || c == '\n' || c == '\t' || c == '\r')
@@ -149,6 +165,36 @@ int lex_read_literal(char *str, int pos)
 {
 	int i;
 
+	i = 0;
+	while (str[pos+i] != '\0')
+	{
+		if (is_whitespace(str[pos+i]) == 0) {
+			i++;
+			continue;
+		}
+		if (i == 0)
+		{
+			return -1;
+		}
+
+		return pos+i;
+	}
+
+	if (i == 0)
+	{
+		return -1;
+	}
+	return pos+i;
+}
+
+int lex_read_variable(char *str, int pos)
+{
+	int i;
+
+	if (str[pos] != '$')
+	{
+		return -1;
+	}
 	i = 0;
 	while (str[pos+i] != '\0')
 	{
@@ -260,6 +306,30 @@ static void set_excerpt(char *str, int pos, s_token_context *context)
 	context->excerpt_pos = pos - start;
 }
 
+t_token *read_literal_token(char *str, int pos)
+{
+	t_token *token;
+	int new;
+	char *data;
+
+	new = lex_read_literal(str, pos);
+	if (new <= 0)
+	{
+		return NULL;
+	}
+	data = copysubstr(str, pos, new);
+	if (data == NULL)
+	{
+		return NULL;
+	}
+	token = new_token(token_type_literal, data, new - pos);
+	free(data);
+	token->context.raw_pos = pos;
+	set_excerpt(str, pos, &token->context);
+
+	return token;
+}
+
 t_token *lex(char *str)
 {
 	int i;
@@ -274,28 +344,18 @@ t_token *lex(char *str)
 	while (lex_read_EOF(str, i) == -1)
 	{
 		t_token *token;
-		char *data;
 		int new;
 
-		new = lex_read_literal(str, i);
-		if (new <= 0)
+		token = read_literal_token(str, i);
+		if (token == NULL)
 		{
-			print_error(str, i, "no literal to read");
-			return root;
-		}
-		data = copysubstr(str, i, new);
-		if (data == NULL)
-		{
+			print_error(str, i, "cannot read token");
 			delete_token(root);
 			return NULL;
 		}
-		token = new_token(token_type_literal, data);
-		free(data);
-		token->context.raw_pos = i;
-		set_excerpt(str, i, &token->context);
 
 		root = add_token(root, token);
-		i = new;
+		i += token->length;
 
 		new = lex_read_whitespace(str, i);
 		if (new != -1)
@@ -307,7 +367,7 @@ t_token *lex(char *str)
 	{
 		t_token *token;
 
-		token = new_token(token_type_empty, NULL);
+		token = new_token(token_type_empty, NULL, 0);
 		if (token == NULL)
 		{
 			return NULL;
